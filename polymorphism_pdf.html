@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Polymorphisme en Programmation Orientée Objet</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 300;
+        }
+        
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+            font-size: 1.5em;
+        }
+        
+        h3 {
+            color: #34495e;
+            margin-top: 25px;
+            font-size: 1.3em;
+        }
+        
+        .definition-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .definition-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .code-section {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .code-title {
+            background: #34495e;
+            color: white;
+            padding: 10px 15px;
+            margin: 20px 0 0 0;
+            border-radius: 5px 5px 0 0;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .code-section pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .advantage-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .advantage-card h4 {
+            margin-top: 0;
+            color: white;
+            font-size: 1.1em;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .example-title {
+            background: #28a745;
+            color: white;
+            padding: 10px 15px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #ff6b6b;
+        }
+        
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .print-button:hover {
+            background: #2980b9;
+        }
+        
+        @media print {
+            .print-button {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+                line-height: 1.4;
+            }
+            
+            .code-section {
+                font-size: 10pt;
+                break-inside: avoid;
+            }
+            
+            h2, h3 {
+                break-after: avoid;
+            }
+            
+            .example-box, .definition-box, .advantage-card {
+                break-inside: avoid;
+            }
+        }
+        
+        ul {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">🖨️ Imprimer PDF</button>
+    
+    <div class="header">
+        <h1>Le Polymorphisme</h1>
+        <div class="subtitle">Programmation Orientée Objet & JavaScript</div>
+    </div>
+
+    <div class="definition-box">
+        <h3>📖 Définition</h3>
+        <p><strong>Le polymorphisme</strong> est un concept fondamental de la POO qui permet à des objets de différentes classes de répondre à la même interface ou méthode, mais de manière spécifique à leur type.</p>
+        <p><em>Étymologie :</em> Du grec "poly" (plusieurs) et "morphe" (forme) = "plusieurs formes"</p>
+    </div>
+
+    <h2>🎯 À quoi sert le polymorphisme ?</h2>
+    <p>Le polymorphisme permet d'écrire du code plus flexible et réutilisable en traitant des objets différents de manière uniforme, tant qu'ils partagent une interface commune.</p>
+
+    <div class="highlight">
+        <strong>Principe clé :</strong> Une même fonction peut travailler avec différents types d'objets sans connaître leur type exact, tant qu'ils implémentent les mêmes méthodes.
+    </div>
+
+    <h2>💡 Exemples pratiques en JavaScript</h2>
+
+    <div class="example-box">
+        <div class="example-title">Exemple 1 : Polymorphisme avec héritage - Les Animaux</div>
+        
+        <div class="code-title">Classes de base et dérivées</div>
+        <div class="code-section">
+            <pre>
+// Classe de base
+class Animal {
+    constructor(nom) {
+        this.nom = nom;
+    }
+    
+    // Méthode que chaque animal redéfinira
+    faireDuBruit() {
+        return "L'animal fait un bruit";
+    }
+    
+    sePresenter() {
+        return `Je suis ${this.nom} et ${this.faireDuBruit()}`;
+    }
+}
+
+// Classes dérivées
+class Chien extends Animal {
+    faireDuBruit() {
+        return "je fais Wouf wouf !";
+    }
+}
+
+class Chat extends Animal {
+    faireDuBruit() {
+        return "je fais Miaou !";
+    }
+}
+
+class Vache extends Animal {
+    faireDuBruit() {
+        return "je fais Meuh !";
+    }
+}
+            </pre>
+        </div>
+
+        <div class="code-title">Utilisation polymorphe</div>
+        <div class="code-section">
+            <pre>
+// Création d'un tableau d'animaux différents
+const animaux = [
+    new Chien("Rex"),
+    new Chat("Whiskers"), 
+    new Vache("Marguerite")
+];
+
+// POLYMORPHISME EN ACTION
+animaux.forEach(animal => {
+    console.log(animal.sePresenter());
+    // Chaque animal utilise SA propre version de faireDuBruit()
+});
+
+// Résultat :
+// Je suis Rex et je fais Wouf wouf !
+// Je suis Whiskers et je fais Miaou !
+// Je suis Marguerite et je fais Meuh !
+            </pre>
+        </div>
+    </div>
+
+    <div class="example-box">
+        <div class="example-title">Exemple 2 : Formes géométriques</div>
+        
+        <div class="code-title">Classes des formes</div>
+        <div class="code-section">
+            <pre>
+class Forme {
+    calculerAire() {
+        throw new Error("Méthode à implémenter");
+    }
+    
+    calculerPerimetre() {
+        throw new Error("Méthode à implémenter");
+    }
+}
+
+class Rectangle extends Forme {
+    constructor(largeur, hauteur) {
+        super();
+        this.largeur = largeur;
+        this.hauteur = hauteur;
+    }
+    
+    calculerAire() {
+        return this.largeur * this.hauteur;
+    }
+    
+    calculerPerimetre() {
+        return 2 * (this.largeur + this.hauteur);
+    }
+}
+
+class Cercle extends Forme {
+    constructor(rayon) {
+        super();
+        this.rayon = rayon;
+    }
+    
+    calculerAire() {
+        return Math.PI * this.rayon * this.rayon;
+    }
+    
+    calculerPerimetre() {
+        return 2 * Math.PI * this.rayon;
+    }
+}
+            </pre>
+        </div>
+
+        <div class="code-title">Fonction polymorphe</div>
+        <div class="code-section">
+            <pre>
+// Cette fonction peut travailler avec N'IMPORTE quelle forme
+function afficherInfosForme(forme) {
+    console.log(`Aire: ${forme.calculerAire().toFixed(2)}`);
+    console.log(`Périmètre: ${forme.calculerPerimetre().toFixed(2)}`);
+}
+
+// Utilisation
+const formes = [
+    new Rectangle(5, 3),
+    new Cercle(4)
+];
+
+formes.forEach(afficherInfosForme);
+// Même fonction, comportements différents !
+            </pre>
+        </div>
+    </div>
+
+    <div class="example-box">
+        <div class="example-title">Exemple 3 : Duck Typing (Sans héritage)</div>
+        
+        <div class="code-section">
+            <pre>
+// Classes sans relation d'héritage
+class Voiture {
+    demarrer() {
+        return "La voiture démarre avec le moteur";
+    }
+}
+
+class Velo {
+    demarrer() {
+        return "Le vélo démarre en pédalant";
+    }
+}
+
+class Avion {
+    demarrer() {
+        return "L'avion démarre ses réacteurs";
+    }
+}
+
+// Fonction qui fonctionne avec tout objet ayant une méthode demarrer()
+function lancerVehicule(vehicule) {
+    console.log(vehicule.demarrer());
+}
+
+// Utilisation
+const vehicules = [new Voiture(), new Velo(), new Avion()];
+vehicules.forEach(lancerVehicule);
+            </pre>
+        </div>
+        
+        <p><strong>Duck Typing :</strong> "Si ça marche comme un canard et ça fait coin-coin comme un canard, c'est un canard" - Pas besoin d'héritage, juste la même interface !</p>
+    </div>
+
+    <h2>✨ Avantages du polymorphisme</h2>
+
+    <div class="advantages-grid">
+        <div class="advantage-card">
+            <h4>🔄 Flexibilité</h4>
+            <p>Traiter différents types d'objets de manière uniforme sans connaître leur type exact.</p>
+        </div>
+        
+        <div class="advantage-card">
+            <h4>📈 Extensibilité</h4>
+            <p>Ajouter de nouveaux types sans modifier le code existant qui utilise ces objets.</p>
+        </div>
+        
+        <div class="advantage-card">
+            <h4>🔧 Maintenance</h4>
+            <p>Les modifications se font localement dans chaque classe, sans affecter le reste du code.</p>
+        </div>
+        
+        <div class="advantage-card">
+            <h4>♻️ Réutilisabilité</h4>
+            <p>Une même fonction peut travailler avec tous les objets respectant une interface commune.</p>
+        </div>
+        
+        <div class="advantage-card">
+            <h4>🎯 Abstraction</h4>
+            <p>Se concentrer sur "quoi faire" plutôt que sur "comment le faire" pour chaque type.</p>
+        </div>
+        
+        <div class="advantage-card">
+            <h4>📝 Code propre</h4>
+            <p>Réduction de la duplication de code et amélioration de la lisibilité.</p>
+        </div>
+    </div>
+
+    <h2>🔍 Types de polymorphisme en JavaScript</h2>
+
+    <h3>1. Polymorphisme par héritage</h3>
+    <p>Les classes enfants redéfinissent les méthodes de la classe parent (override). Chaque classe a sa propre implémentation de la méthode.</p>
+
+    <h3>2. Duck Typing</h3>
+    <p>Si deux objets ont les mêmes méthodes, ils peuvent être utilisés de manière interchangeable, même sans relation d'héritage. C'est une spécificité des langages dynamiques comme JavaScript.</p>
+
+    <div class="highlight">
+        <h3>🎯 Résumé</h3>
+        <p>Le polymorphisme est un outil puissant qui rend votre code :</p>
+        <ul>
+            <li><strong>Plus modulaire</strong> : Chaque classe gère sa propre logique</li>
+            <li><strong>Plus maintenable</strong> : Modifications localisées</li>
+            <li><strong>Plus évolutif</strong> : Ajout facile de nouveaux types</li>
+            <li><strong>Plus réutilisable</strong> : Fonctions génériques</li>
+        </ul>
+        <p><em>Le polymorphisme permet à différents objets de répondre à la même interface selon leur propre logique.</em></p>
+    </div>
+
+    <div class="footer">
+        <p>📚 Guide du Polymorphisme en POO - JavaScript</p>
+        <p>Concepts fondamentaux de la Programmation Orientée Objet</p>
+    </div>
+
+    <script>
+        // Ajouter de l'interactivité pour la version web
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation subtile au chargement
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease-in';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            // Améliorer l'expérience d'impression
+            window.addEventListener('beforeprint', function() {
+                document.title = 'Polymorphisme_POO_JavaScript_Guide';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide des Interfaces - POO et JavaScript</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-style: italic;
+            margin: 10px 0 0 0;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .section h3 {
+            color: #34495e;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .definition-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .schema {
+            background: #fff;
+            border: 2px solid #bdc3c7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .interface-box {
+            background: #e8f4fd;
+            border: 2px dashed #3498db;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 200px;
+        }
+        
+        .class-box {
+            background: #f0f8e8;
+            border: 2px solid #27ae60;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 200px;
+        }
+        
+        .arrow {
+            font-size: 2em;
+            color: #e74c3c;
+            margin: 0 10px;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 15px 0;
+            line-height: 1.4;
+        }
+        
+        .code-block .keyword {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .code-block .string {
+            color: #f39c12;
+        }
+        
+        .code-block .comment {
+            color: #95a5a6;
+            font-style: italic;
+        }
+        
+        .characteristics {
+            background: #fef9e7;
+            border: 1px solid #f39c12;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .characteristics ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .characteristics li {
+            margin-bottom: 8px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table th {
+            background: #34495e;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .print-btn:hover {
+            background: #2980b9;
+        }
+        
+        @media print {
+            .print-btn {
+                display: none;
+            }
+            
+            body {
+                max-width: none;
+                padding: 0;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+        
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn" onclick="window.print()">📄 Imprimer/PDF</button>
+    
+    <div class="header">
+        <h1>Guide des Interfaces</h1>
+        <p>Programmation Orientée Objet & JavaScript</p>
+    </div>
+    
+    <div class="section">
+        <h2>🔍 Interface en Programmation Orientée Objet</h2>
+        
+        <div class="definition-box">
+            <strong>Définition :</strong> Une interface est un contrat qui définit un ensemble de méthodes qu'une classe doit obligatoirement implémenter, sans spécifier leur implémentation concrète.
+        </div>
+        
+        <div class="schema">
+            <h3>Schéma Conceptuel POO</h3>
+            <div class="flow-diagram">
+                <div class="interface-box">
+                    <strong>Interface Vehicule</strong><br>
+                    + demarrer()<br>
+                    + arreter()<br>
+                    + getVitesse()
+                </div>
+                <div class="arrow">⬇</div>
+                <div style="display: flex; flex-direction: column;">
+                    <div class="class-box">
+                        <strong>Classe Voiture</strong><br>
+                        implements Vehicule<br>
+                        + demarrer() { ... }<br>
+                        + arreter() { ... }<br>
+                        + getVitesse() { ... }
+                    </div>
+                    <div class="class-box">
+                        <strong>Classe Moto</strong><br>
+                        implements Vehicule<br>
+                        + demarrer() { ... }<br>
+                        + arreter() { ... }<br>
+                        + getVitesse() { ... }
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="characteristics">
+            <h3>📋 Caractéristiques principales</h3>
+            <ul>
+                <li><strong>Contrat obligatoire :</strong> Définit les signatures des méthodes sans implémentation</li>
+                <li><strong>Polymorphisme :</strong> Permet d'utiliser différentes classes via la même interface</li>
+                <li><strong>Héritage multiple :</strong> Une classe peut implémenter plusieurs interfaces</li>
+                <li><strong>Découplage :</strong> Sépare la définition de l'implémentation</li>
+                <li><strong>Standardisation :</strong> Impose une structure commune</li>
+            </ul>
+        </div>
+        
+        <h3>💻 Exemple en Java</h3>
+        <div class="code-block">
+<span class="keyword">interface</span> Vehicule {
+    <span class="keyword">void</span> demarrer();
+    <span class="keyword">void</span> arreter();
+    <span class="keyword">int</span> getVitesse();
+}
+
+<span class="keyword">class</span> Voiture <span class="keyword">implements</span> Vehicule {
+    <span class="keyword">private int</span> vitesse = 0;
+    
+    <span class="keyword">public void</span> demarrer() {
+        System.out.println(<span class="string">"Voiture démarrée"</span>);
+    }
+    
+    <span class="keyword">public void</span> arreter() {
+        vitesse = 0;
+        System.out.println(<span class="string">"Voiture arrêtée"</span>);
+    }
+    
+    <span class="keyword">public int</span> getVitesse() {
+        <span class="keyword">return</span> vitesse;
+    }
+}
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>🌐 Interface en JavaScript</h2>
+        
+        <div class="definition-box">
+            <strong>Contexte :</strong> JavaScript natif ne possède pas d'interfaces comme Java ou C#, mais le concept peut être simulé de plusieurs façons.
+        </div>
+        
+        <h3>1️⃣ Avec TypeScript (Recommandé)</h3>
+        <div class="code-block">
+<span class="keyword">interface</span> Utilisateur {
+    nom: <span class="keyword">string</span>;
+    age: <span class="keyword">number</span>;
+    seConnecter(): <span class="keyword">void</span>;
+}
+
+<span class="keyword">class</span> Admin <span class="keyword">implements</span> Utilisateur {
+    nom: <span class="keyword">string</span>;
+    age: <span class="keyword">number</span>;
+    
+    <span class="keyword">constructor</span>(nom: <span class="keyword">string</span>, age: <span class="keyword">number</span>) {
+        <span class="keyword">this</span>.nom = nom;
+        <span class="keyword">this</span>.age = age;
+    }
+    
+    seConnecter(): <span class="keyword">void</span> {
+        console.log(<span class="string">`${this.nom} est connecté`</span>);
+    }
+}
+        </div>
+        
+        <h3>2️⃣ JavaScript Pur (Convention)</h3>
+        <div class="code-block">
+<span class="comment">// "Interface" par convention</span>
+<span class="keyword">const</span> InterfaceVehicule = {
+    demarrer: <span class="keyword">function</span>() {
+        <span class="keyword">throw new</span> Error(<span class="string">"Méthode non implémentée"</span>);
+    },
+    arreter: <span class="keyword">function</span>() {
+        <span class="keyword">throw new</span> Error(<span class="string">"Méthode non implémentée"</span>);
+    }
+};
+
+<span class="comment">// Classe qui "implémente" l'interface</span>
+<span class="keyword">class</span> Moto {
+    demarrer() {
+        console.log(<span class="string">"Moto démarrée"</span>);
+    }
+    
+    arreter() {
+        console.log(<span class="string">"Moto arrêtée"</span>);
+    }
+}
+        </div>
+        
+        <h3>3️⃣ Avec Classes Abstraites</h3>
+        <div class="code-block">
+<span class="keyword">class</span> VehiculeInterface {
+    demarrer() {
+        <span class="keyword">throw new</span> Error(<span class="string">"Méthode abstraite non implémentée"</span>);
+    }
+    
+    arreter() {
+        <span class="keyword">throw new</span> Error(<span class="string">"Méthode abstraite non implémentée"</span>);
+    }
+}
+
+<span class="keyword">class</span> Camion <span class="keyword">extends</span> VehiculeInterface {
+    demarrer() {
+        console.log(<span class="string">"Camion démarré"</span>);
+    }
+    
+    arreter() {
+        console.log(<span class="string">"Camion arrêté"</span>);
+    }
+}
+        </div>
+        
+        <div class="schema">
+            <h3>Schéma JavaScript - Différentes Approches</h3>
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                <div class="interface-box">
+                    <strong>TypeScript</strong><br>
+                    Interface native<br>
+                    Vérification compile-time<br>
+                    ✅ Recommandé
+                </div>
+                <div class="interface-box">
+                    <strong>Convention JS</strong><br>
+                    Objet avec erreurs<br>
+                    Vérification runtime<br>
+                    ⚠️ Basique
+                </div>
+                <div class="interface-box">
+                    <strong>Classes Abstraites</strong><br>
+                    Héritage + erreurs<br>
+                    Vérification runtime<br>
+                    🔧 Moderne
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>⚖️ Comparaison des Approches</h2>
+        
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Aspect</th>
+                    <th>POO Classique (Java/C#)</th>
+                    <th>TypeScript</th>
+                    <th>JavaScript Pur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Syntaxe native</strong></td>
+                    <td>✅ Oui</td>
+                    <td>✅ Oui</td>
+                    <td>❌ Simulation</td>
+                </tr>
+                <tr>
+                    <td><strong>Vérification compile-time</strong></td>
+                    <td>✅ Oui</td>
+                    <td>✅ Oui</td>
+                    <td>❌ Runtime uniquement</td>
+                </tr>
+                <tr>
+                    <td><strong>Héritage multiple</strong></td>
+                    <td>✅ Interfaces multiples</td>
+                    <td>✅ Interfaces multiples</td>
+                    <td>⚠️ Complexe à simuler</td>
+                </tr>
+                <tr>
+                    <td><strong>Performance</strong></td>
+                    <td>🔥 Optimisée</td>
+                    <td>🔥 Compile vers JS</td>
+                    <td>⚠️ Vérifications runtime</td>
+                </tr>
+                <tr>
+                    <td><strong>Facilité d'usage</strong></td>
+                    <td>✅ Simple</td>
+                    <td>✅ Simple</td>
+                    <td>⚠️ Verbose</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>🎯 Avantages des Interfaces</h2>
+        
+        <div class="characteristics">
+            <h3>✨ Bénéfices</h3>
+            <ul>
+                <li><strong>Cohérence :</strong> Garantit une structure uniforme entre les classes</li>
+                <li><strong>Maintenabilité :</strong> Facilite les modifications et extensions</li>
+                <li><strong>Testabilité :</strong> Permet le mocking et les tests unitaires</li>
+                <li><strong>Documentation :</strong> Sert de documentation vivante du code</li>
+                <li><strong>Polymorphisme :</strong> Utilisation transparente de différentes implémentations</li>
+                <li><strong>Découplage :</strong> Réduit les dépendances entre composants</li>
+            </ul>
+        </div>
+        
+        <div class="schema">
+            <h3>Exemple d'Usage Polymorphe</h3>
+            <div class="code-block">
+<span class="comment">// Fonction qui accepte n'importe quel véhicule</span>
+<span class="keyword">function</span> demarrerVehicule(vehicule: Vehicule) {
+    vehicule.demarrer(); <span class="comment">// Fonctionne avec Voiture, Moto, Camion...</span>
+}
+
+<span class="keyword">const</span> voiture = <span class="keyword">new</span> Voiture();
+<span class="keyword">const</span> moto = <span class="keyword">new</span> Moto();
+
+demarrerVehicule(voiture); <span class="comment">// "Voiture démarrée"</span>
+demarrerVehicule(moto);    <span class="comment">// "Moto démarrée"</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>📚 Résumé</h2>
+        
+        <div class="definition-box">
+            <p><strong>L'interface est un pilier fondamental de la POO</strong> qui permet de définir des contrats clairs entre les composants d'une application.</p>
+            
+            <p>En <strong>POO classique</strong>, elle est native et puissante. En <strong>JavaScript</strong>, bien qu'elle ne soit pas native, elle peut être simulée efficacement, surtout avec <strong>TypeScript</strong> qui offre une expérience proche des langages typés.</p>
+            
+            <p><strong>Recommandation :</strong> Utilisez TypeScript pour les projets JavaScript nécessitant des interfaces robustes.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Améliorer l'expérience d'impression
+        window.addEventListener('beforeprint', function() {
+            document.body.style.fontSize = '12px';
+        });
+        
+        window.addEventListener('afterprint', function() {
+            document.body.style.fontSize = '';
+        });
+    </script>
+</body>
+</html>
